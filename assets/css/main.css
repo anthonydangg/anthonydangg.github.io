@@ -164,10 +164,18 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
 		transition: color 0.2s ease, border-bottom 0.2s ease;
 		text-decoration: none;
+		/* border-bottom: dotted 1px; */
+		color: inherit;
+	}
+	a.link{
+		-moz-transition: color 0.2s ease, border-bottom 0.2s ease;
+		-webkit-transition: color 0.2s ease, border-bottom 0.2s ease;
+		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
+		transition: color 0.2s ease, border-bottom 0.2s ease;
+		text-decoration: none;
 		border-bottom: dotted 1px;
 		color: inherit;
 	}
-
 		a:hover {
 			border-bottom-color: transparent;
 		}
@@ -2245,6 +2253,7 @@ input, select, textarea {
 		border-radius: 100%; /* Ensure the container is circular */
 		overflow: hidden; /* Ensure no part of the image exceeds the container */
 	}
+	
 
 
 		.icon:before {
@@ -2430,11 +2439,28 @@ input, select, textarea {
 			display: block;
 			margin: 0 0 3em 0;
 			width: 100%;
+    		height: 388px; /* Set height for the container */
+			overflow: hidden;
 		}
 
 			.image.main img {
 				width: 100%;
+				height: 100%;
+				object-fit: cover;
 			}
+
+		/* For mobile devices */
+		@media screen and (max-width: 768px) {
+			.image.main {
+				height: 300px; /* Adjust height for tablets or small devices */
+			}
+		}
+
+		@media screen and (max-width: 480px) {
+			.image.main {
+				height: 200px; /* Adjust height for mobile devices */
+			}
+		}
 
 /* List */
 
@@ -3720,27 +3746,35 @@ input, select, textarea {
 		-webkit-flex-wrap: wrap;
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
-		padding: 5em 5em 3em 5em ;
-		width: calc(100% + 2em);
-		margin: 0 0 3em -2em;
+		padding: 3em 5em 3em 5em ;
+		/* width: calc(100% + 2em); */
+		/* margin: 0 0 3em -2em; */
+		width: 100%; /* Use full width */
+		margin: 0 0 3em 0; /* Remove negative margin to prevent offset */
+		justify-content: center; /* Center horizontally */
+		align-items: center; /* Center vertically */
 	}
 
 		#footer > * {
 			width: calc(50% - 2em);
-			margin-left: 2em;
+			margin-left: 1em;
+			text-align: center;
 		}
 
 		#footer .copyright {
 			width: 100%;
-			margin: 2.5em 0 2em 0;
 			font-size: 0.8em;
 			text-align: center;
 		}
+		
+		/* #footer .icons {
+			text-align: center;
+		} */
 
 		@media screen and (max-width: 1280px) {
 
 			#footer {
-				padding: 4em 4em 2em 4em ;
+				padding: 3em 4em 2em 4em ;
 			}
 
 		}
@@ -3748,7 +3782,7 @@ input, select, textarea {
 		@media screen and (max-width: 980px) {
 
 			#footer {
-				padding: 4em 3em 2em 3em ;
+				padding: 3em 3em 2em 3em ;
 				display: block;
 				margin: 0 0 3em 0;
 				width: 100%;
@@ -3757,11 +3791,11 @@ input, select, textarea {
 				#footer > * {
 					width: 100%;
 					margin-left: 0;
-					margin-bottom: 3em;
+					margin-bottom: 0em;
 				}
 
 				#footer .copyright {
-					text-align: left;
+					text-align: center;
 				}
 
 		}
@@ -3813,3 +3847,41 @@ input, select, textarea {
 			}
 
 		}
+
+.columns {
+	float: left;
+	width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+
+  #tools {
+    /* font-size : 30px; */
+    margin-bottom: 25px;
+    line-height : 10px;
+}
+
+/* Responsive Design - Stack columns vertically on smaller screens */
+@media (max-width: 768px) {
+	.columns {
+	  width: 100%; /* Full width for each column on mobile */
+	  float: none; /* Remove the float so they stack vertically */
+	}
+  }
+
+.centered-img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 15px; /* Adjust to make the edges more or less rounded */
+	max-width: 100%; /* Ensures the image is responsive */
+  }
+
+  
+
+  
