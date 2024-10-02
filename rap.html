@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Rapmetrics</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
+		<!-- Prism.js CSS for syntax highlighting -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+		<!-- Prism.js JavaScript for functionality -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+		<!-- Include the Python language component -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Anthony Dang</a></h1>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+								<span class="image main"><img src="images/rap_banner.png" alt="" /></span>
+								<div class="row">
+									<div class="columns">
+										<h1><b>Rapmetrics.</b></h1>
+										<p>I love rap music and wanted a way to combine it with data storytelling. I’ve always been interested in how well a rap album or song does and find myself frequently looking up streaming numbers. However, Spotify doesn’t visualize its data for consumers to easily digest. This inspired me to create a social media brand that would deliver interesting insights about rap music.</p>
+									</div>
+									<div class="columns">
+										<h4><b>Role</b></h4>
+											<p id="tools">Lead Developer</p>
+										<h4><b>Timeline</b></h4>
+											<p id="tools">June 2024 - Present</p>
+										<h4><b>Tools</b></h4>
+											<p id="tools">SQL, Python, Tableau, Photoshop</p>
+										<h4><b>Impact</b></h4>
+											<p id="tools">Reached 300+ accounts across social media</p>	
+									</div>
+								</div>
+								<img src="images/bigsean.png" alt="Project Demo" class="centered-img"/>
+								<h2>Process</h2>
+								<p>For the image above, the process starts in Python. Collecting data from Spotify manually can be tedious so I decided to build a scraper that would do this automatically for me. </p>
+								<pre><code class="language-python">from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+import csv
+
+link = input('Paste your Spotify album url:\n')
+
+driver = webdriver.Chrome()
+driver.get(link)
+time.sleep(5)
+
+# Finds title tracks and streams
+track_elements = driver.find_elements(By.CSS_SELECTOR, 'a[data-testid="internal-track-link"]')
+track_links = [track.get_attribute('href') for track in track_elements]
+
+track_streams = {}
+name = []
+plays = []
+
+for link in track_links:
+	driver.get(link)
+	time.sleep(5)
+
+	name.append(driver.find_element(By.CSS_SELECTOR, 'h1[data-encore-id="text"]').text)
+	plays.append(driver.find_element(By.CSS_SELECTOR, 'span[data-testid="playcount"]').text)
+	
+track_streams['Name'] = name
+track_streams['Plays'] = plays
+print(track_streams)
+
+driver.quit()
+
+with open('album_data.csv','w',newline='') as f:
+	writer = csv.writer(f)
+	writer.writerow(track_streams.keys())
+	for i in range(len(name)):
+		writer.writerow([val[i] for val in track_streams.values()])
+								</code></pre>
+								<p>The album scraper I created uses Selenium to go through an artist’s album Spotify page to extract streaming data that I will use for my visualization. Since the data isn’t all on one page, the scraper has to click through each track to obtain streaming data. Once finished, the scraper will output the data as a CSV file which I can then load into Tableau or Plotly to create a bar graph. </p>
+								<p>Using the bar graph, I will put the image into Photoshop to add aesthetic effects to drive more engagement.</p>
+								<img src="images/photoshop_ex.png" alt="Project Demo" class="centered-img"/>
+								<h2>Conclusion</h2>		
+								<p>This project has been fulfilling to please the coder side of my brain and the rap lover in me. It sparked my love for data engineering and allowed me to see how data engineering can be applied anywhere. I will continue to find more interesting data and build ETL pipelines to grow Rapmetrics.</p>
+								<h2>Where to view</h2>			
+								<ul class="icons">
+									<li><a href="https://www.instagram.com/rapmetrics/" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+									<li><a href="https://x.com/rapmetric" class="icon brands fa-twitter" target="_blank"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section>
+						<!-- <h2>Links</h2> -->
+						<ul class="icons">
+							<!-- <li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li> -->
+							<li><a href="mailto:contact@anthonydang.dev" class="icon solid fa-envelope"><span class="label">Facebook</span></a></li>
+							<li><a href="https://github.com/anthonydangg" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/anthony-dangg/" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://www.instagram.com/anthonydanggg/" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+						</ul>
+					</section>
+					<p class="copyright">&copy; Anthony Dang. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
